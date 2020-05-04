@@ -34,7 +34,7 @@ public class PersonServiceImplTest {
 	public void itThrowsExceptionWithInvalidId() {
 		final String id = UUID.randomUUID().toString();
 		
-		Assertions.assertThrows(PersonException.class, () -> serviceUnderTest.getById(id));
+		Assertions.assertThrows(NullPointerException.class, () -> serviceUnderTest.getById(id));
 	}
 	
 	@Test

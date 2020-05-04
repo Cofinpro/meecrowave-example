@@ -43,7 +43,7 @@ public class SimpsonsFamilyTest {
 	public void itDoesNotAddDuplicates() {
 		final Person person = new Person("Homer", "Simpson"); // it belongs to initial list
 		
-		Assertions.assertThrows(IllegalArgumentException.class, () -> familyUnderTest.add(person));	
+		Assertions.assertThrows(PersonException.class, () -> familyUnderTest.add(person));	
 	}
 	
 	@Test
@@ -62,6 +62,6 @@ public class SimpsonsFamilyTest {
 	public void itThrowsExceptionWhileRemovingNonExistent() {
 		final Person person = new Person("Ned", "Flanders");
 		
-		Assertions.assertThrows(IllegalArgumentException.class, () -> familyUnderTest.remove(person));	
+		Assertions.assertThrows(PersonException.class, () -> familyUnderTest.remove(person));	
 	}
 }

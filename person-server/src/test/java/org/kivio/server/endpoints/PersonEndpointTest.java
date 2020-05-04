@@ -48,7 +48,7 @@ public class PersonEndpointTest {
 	
 	@Test
 	public void itAddsANewPerson() {
-		Person newPerson = new Person("Abe", "Simpson");
+		Person newPerson = new Person("Mona", "Simpson");
 		Response response = baseTarget.request(MediaType.APPLICATION_JSON)
 				.post(Entity.json(newPerson));
 		
@@ -63,6 +63,6 @@ public class PersonEndpointTest {
 				.post(Entity.json(duplicate));
 		
 		assertNotNull(response);
-		assertThat(response.getStatus(), is(500));
+		assertThat(response.getStatus(), is(406));
 	}
 }
