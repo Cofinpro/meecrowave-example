@@ -23,7 +23,8 @@
 		<meecrowave.version>1.2.9</meecrowave.version>
 		<jaxb-api.version>2.3.1</jaxb-api.version>
 		<slf4j-api.version>1.7.30</slf4j-api.version>
-		<log4j.version>2.11.1</log4j.version>
+		<log4j.version>2.12.1</log4j.version>
+		<docker.maven.version>0.32.0</docker.maven.version>
 	</properties>
 
 	<modules>
@@ -63,21 +64,14 @@
 				<artifactId>jaxb-api</artifactId>
 				<version>${jaxb-api.version}</version>
 			</dependency>
-			<!-- Meecrowave comes with Log4J but we want to abstract with SLF4J -->
+			<!-- 
+				Meecrowave comes with Log4J but we want to abstract with SLF4J 
+				We do not define the Log4J dependencies again.
+			-->
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
 				<version>${slf4j-api.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-api</artifactId>
-				<version>${log4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-core</artifactId>
-				<version>${log4j.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.logging.log4j</groupId>
@@ -99,4 +93,15 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>io.fabric8</groupId>
+					<artifactId>docker-maven-plugin</artifactId>
+					<version>${docker.maven.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 </project>
