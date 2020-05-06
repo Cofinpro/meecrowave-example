@@ -39,16 +39,6 @@
 			<artifactId>log4j-slf4j-impl</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
 			<scope>test</scope>
@@ -65,6 +55,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.meecrowave</groupId>
@@ -72,15 +63,72 @@
 				<version>${meecrowave.version}</version>
 				<dependencies>
 					<!-- 
-						needed for running meecrowave from maven on JDK 9 or newer
-						otherwise bindings are not found (not needed for export)
-					 -->
+						needed for running Meecrowave from Maven on JDK 9 or newer 
+						otherwise bindings are not found (not needed for export) 
+					-->
 					<dependency>
 						<groupId>javax.xml.bind</groupId>
 						<artifactId>jaxb-api</artifactId>
 						<version>${jaxb-api.version}</version>
 					</dependency>
 				</dependencies>
+				<configuration>
+					<formats>
+						<format>tar.gz</format>
+						<format>zip</format>
+					</formats>
+					<rootName>${project.artifactId}</rootName>
+				</configuration>
+				<executions>
+					<execution>
+						<id>bundle-meecrowave</id>
+						<phase>package</phase>
+						<goals>
+							<goal>bundle</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<configuration>
+					<images>
+						<image>
+							<name>${project.artifactId}:${project.version}</name>
+							<alias>${project.artifactId}</alias>
+							<build>
+								<contextDir>${project.basedir}</contextDir>
+								<assembly>
+									<!-- instead of using the default "maven" -->
+									<name>target</name>
+									<inline>
+										<fileSet>
+											<directory>${project.build.directory}</directory>
+											<includes>
+												<include>${project.artifactId}-meecrowave-distribution.tar.gz</include>
+											</includes>
+											<outputDirectory>.</outputDirectory>
+										</fileSet>
+									</inline>
+								</assembly>
+							</build>
+						</image>
+					</images>
+				</configuration>
+				<!-- 
+					uncomment these lines if you want to build an Docker image 
+					during the phase "package"
+				-->
+				<!-- <executions>
+					<execution>
+						<id>create-docker-image</id>
+						<phase>package</phase>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>  -->
 			</plugin>
 		</plugins>
 	</build>

@@ -11,5 +11,14 @@ meecrowave:bundle`.
 If you simply want to run the server on command line call `mvn meecrowave:run` inside
 _person-server_.
 
+## Build a Docker image
+_person-server_ can be build as Docker image. There is Fabric8 Maven Docker plugin embedded in
+pom.xml. The commands
+
+```
+mvn clean package meecrowave:bundle docker:build
+```
+will build a Docker image given by the embedded Dockerfile.
+
 [meecrowave]: https://openwebbeans.apache.org/meecrowave/
 [kivio]: http://kivio.org
