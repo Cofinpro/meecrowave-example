@@ -9,7 +9,6 @@ import org.kivio.exception.PersonException;
 
 @Provider
 public class PersonExceptionMapper implements ExceptionMapper<PersonException>{
-
 	@Override
 	public Response toResponse(PersonException exception) {
 		return Response.status(Status.NOT_ACCEPTABLE).entity(exception.getMessage()).build();

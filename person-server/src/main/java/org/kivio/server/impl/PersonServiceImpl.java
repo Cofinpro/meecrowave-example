@@ -32,7 +32,7 @@ public class PersonServiceImpl implements IPersonService {
 	}
 
 	@Override
-	public Person getById(String id) throws PersonException {
+	public Person getById(String id) {
 		checkList();
 
 		Optional<Person> person = findById(id);
@@ -72,7 +72,7 @@ public class PersonServiceImpl implements IPersonService {
 	}
 
 	@Override
-	public void removeById(String id) throws PersonException {
+	public void removeById(String id) {
 		checkList();
 
 		Optional<Person> person = findById(id);

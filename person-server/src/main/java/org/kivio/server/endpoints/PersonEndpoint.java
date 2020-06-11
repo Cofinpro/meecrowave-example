@@ -14,7 +14,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.kivio.api.IPersonService;
-import org.kivio.exception.PersonException;
 import org.kivio.model.Person;
 
 @RequestScoped
@@ -30,14 +29,14 @@ public class PersonEndpoint {
 	}
 	
 	@DELETE
-	public Response removePerson(Person person) throws PersonException {
+	public Response removePerson(Person person) {
 		personService.remove(person);
 		return Response.ok(person).build();
 	}
 	
 	@DELETE
 	@Path("/{id}")
-	public Response removeById(@PathParam("id") String id) throws PersonException {
+	public Response removeById(@PathParam("id") String id) {
 		personService.removeById(id);
 		return Response.ok().build();
 	}
@@ -56,7 +55,7 @@ public class PersonEndpoint {
 	
 	@GET
 	@Path("/{id}")
-	public Response getById(@PathParam("id") String id) throws PersonException {
+	public Response getById(@PathParam("id") String id) {
 		Person person = personService.getById(id);
 		return Response.ok(person).build();
 	}

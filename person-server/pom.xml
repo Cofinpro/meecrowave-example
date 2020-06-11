@@ -61,17 +61,6 @@
 				<groupId>org.apache.meecrowave</groupId>
 				<artifactId>meecrowave-maven-plugin</artifactId>
 				<version>${meecrowave.version}</version>
-				<dependencies>
-					<!-- 
-						needed for running Meecrowave from Maven on JDK 9 or newer 
-						otherwise bindings are not found (not needed for export) 
-					-->
-					<dependency>
-						<groupId>javax.xml.bind</groupId>
-						<artifactId>jaxb-api</artifactId>
-						<version>${jaxb-api.version}</version>
-					</dependency>
-				</dependencies>
 				<configuration>
 					<formats>
 						<format>tar.gz</format>
